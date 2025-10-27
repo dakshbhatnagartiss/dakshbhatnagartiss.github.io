@@ -1,0 +1,2002 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vizianagaram District Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+  --color-white: rgba(255, 255, 255, 1);
+  --color-black: rgba(0, 0, 0, 1);
+  --color-cream-50: rgba(252, 252, 249, 1);
+  --color-cream-100: rgba(255, 255, 253, 1);
+  --color-gray-200: rgba(245, 245, 245, 1);
+  --color-gray-300: rgba(167, 169, 169, 1);
+  --color-gray-400: rgba(119, 124, 124, 1);
+  --color-slate-500: rgba(98, 108, 113, 1);
+  --color-brown-600: rgba(94, 82, 64, 1);
+  --color-charcoal-700: rgba(31, 33, 33, 1);
+  --color-charcoal-800: rgba(38, 40, 40, 1);
+  --color-slate-900: rgba(19, 52, 59, 1);
+  --color-teal-300: rgba(50, 184, 198, 1);
+  --color-teal-400: rgba(45, 166, 178, 1);
+  --color-teal-500: rgba(33, 128, 141, 1);
+  --color-teal-600: rgba(29, 116, 128, 1);
+  --color-teal-700: rgba(26, 104, 115, 1);
+  --color-teal-800: rgba(41, 150, 161, 1);
+  --color-red-400: rgba(255, 84, 89, 1);
+  --color-red-500: rgba(192, 21, 47, 1);
+  --color-orange-400: rgba(230, 129, 97, 1);
+  --color-orange-500: rgba(168, 75, 47, 1);
+  --color-brown-600-rgb: 94, 82, 64;
+  --color-teal-500-rgb: 33, 128, 141;
+  --color-slate-900-rgb: 19, 52, 59;
+  --color-slate-500-rgb: 98, 108, 113;
+  --color-red-500-rgb: 192, 21, 47;
+  --color-red-400-rgb: 255, 84, 89;
+  --color-orange-500-rgb: 168, 75, 47;
+  --color-orange-400-rgb: 230, 129, 97;
+  --color-bg-1: rgba(59, 130, 246, 0.08);
+  --color-bg-2: rgba(245, 158, 11, 0.08);
+  --color-bg-3: rgba(34, 197, 94, 0.08);
+  --color-bg-4: rgba(239, 68, 68, 0.08);
+  --color-bg-5: rgba(147, 51, 234, 0.08);
+  --color-bg-6: rgba(249, 115, 22, 0.08);
+  --color-bg-7: rgba(236, 72, 153, 0.08);
+  --color-bg-8: rgba(6, 182, 212, 0.08);
+  --color-background: var(--color-cream-50);
+  --color-surface: var(--color-cream-100);
+  --color-text: var(--color-slate-900);
+  --color-text-secondary: var(--color-slate-500);
+  --color-primary: var(--color-teal-500);
+  --color-primary-hover: var(--color-teal-600);
+  --color-primary-active: var(--color-teal-700);
+  --color-secondary: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-secondary-hover: rgba(var(--color-brown-600-rgb), 0.2);
+  --color-secondary-active: rgba(var(--color-brown-600-rgb), 0.25);
+  --color-border: rgba(var(--color-brown-600-rgb), 0.2);
+  --color-btn-primary-text: var(--color-cream-50);
+  --color-card-border: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-card-border-inner: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-error: var(--color-red-500);
+  --color-success: var(--color-teal-500);
+  --color-warning: var(--color-orange-500);
+  --color-info: var(--color-slate-500);
+  --color-focus-ring: rgba(var(--color-teal-500-rgb), 0.4);
+  --focus-ring: 0 0 0 3px var(--color-focus-ring);
+  --focus-outline: 2px solid var(--color-primary);
+  --font-family-base: "FKGroteskNeue", "Geist", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-size-xs: 11px;
+  --font-size-sm: 12px;
+  --font-size-base: 14px;
+  --font-size-md: 14px;
+  --font-size-lg: 16px;
+  --font-size-xl: 18px;
+  --font-size-2xl: 20px;
+  --font-size-3xl: 24px;
+  --font-size-4xl: 30px;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 550;
+  --font-weight-bold: 600;
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+  --letter-spacing-tight: -0.01em;
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-32: 32px;
+  --radius-sm: 6px;
+  --radius-base: 8px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.04), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.04), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-gray-400-rgb: 119, 124, 124;
+    --color-teal-300-rgb: 50, 184, 198;
+    --color-gray-300-rgb: 167, 169, 169;
+    --color-gray-200-rgb: 245, 245, 245;
+    --color-bg-1: rgba(29, 78, 216, 0.15);
+    --color-bg-2: rgba(180, 83, 9, 0.15);
+    --color-bg-3: rgba(21, 128, 61, 0.15);
+    --color-bg-4: rgba(185, 28, 28, 0.15);
+    --color-bg-5: rgba(107, 33, 168, 0.15);
+    --color-bg-6: rgba(194, 65, 12, 0.15);
+    --color-bg-7: rgba(190, 24, 93, 0.15);
+    --color-bg-8: rgba(8, 145, 178, 0.15);
+    --color-background: var(--color-charcoal-700);
+    --color-surface: var(--color-charcoal-800);
+    --color-text: var(--color-gray-200);
+    --color-text-secondary: rgba(var(--color-gray-300-rgb), 0.7);
+    --color-primary: var(--color-teal-300);
+    --color-primary-hover: var(--color-teal-400);
+    --color-primary-active: var(--color-teal-800);
+    --color-secondary: rgba(var(--color-gray-400-rgb), 0.15);
+    --color-secondary-hover: rgba(var(--color-gray-400-rgb), 0.25);
+    --color-secondary-active: rgba(var(--color-gray-400-rgb), 0.3);
+    --color-border: rgba(var(--color-gray-400-rgb), 0.3);
+    --color-error: var(--color-red-400);
+    --color-success: var(--color-teal-300);
+    --color-warning: var(--color-orange-400);
+    --color-info: var(--color-gray-300);
+    --color-focus-ring: rgba(var(--color-teal-300-rgb), 0.4);
+    --color-btn-primary-text: var(--color-slate-900);
+    --color-card-border: rgba(var(--color-gray-400-rgb), 0.2);
+    --color-card-border-inner: rgba(var(--color-gray-400-rgb), 0.15);
+  }
+}
+
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family-base);
+  background-color: var(--color-background);
+  color: var(--color-text);
+  line-height: var(--line-height-normal);
+  -webkit-font-smoothing: antialiased;
+}
+
+.dashboard {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  background: var(--color-surface);
+  border-bottom: 2px solid var(--color-border);
+  padding: var(--space-24) var(--space-24);
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+}
+
+.header h1 {
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+  margin-bottom: var(--space-8);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+.header p {
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-normal);
+}
+
+.navigation {
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  padding: 0;
+  box-shadow: var(--shadow-sm);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 var(--space-16);
+}
+
+.nav-tabs {
+  display: flex;
+  gap: var(--space-4);
+  list-style: none;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.nav-tab {
+  padding: var(--space-16) var(--space-20);
+  cursor: pointer;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  border-bottom: 3px solid transparent;
+  transition: all var(--duration-fast) var(--ease-standard);
+  white-space: nowrap;
+}
+
+.nav-tab:hover {
+  color: var(--color-text);
+  background: var(--color-secondary);
+}
+
+.nav-tab.active {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+  font-weight: var(--font-weight-semibold);
+}
+
+.main-content {
+  flex: 1;
+  padding: var(--space-32) var(--space-24);
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.section {
+  display: none;
+  opacity: 0;
+}
+
+.section.active {
+  display: block;
+  animation: fadeIn 0.3s ease-in forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.section-title {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+  margin-bottom: var(--space-24);
+}
+
+.section-subtitle {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+  margin: var(--space-32) 0 var(--space-16);
+}
+
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--space-16);
+  margin-bottom: var(--space-32);
+}
+
+.kpi-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-20);
+  box-shadow: var(--shadow-md);
+  transition: transform var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard);
+}
+
+.kpi-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.kpi-label {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-medium);
+  margin-bottom: var(--space-8);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.kpi-value {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+  margin-bottom: var(--space-4);
+}
+
+.kpi-subtitle {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-normal);
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--space-16);
+  margin-bottom: var(--space-32);
+}
+
+.info-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-16);
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+}
+
+.info-value {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  margin-bottom: var(--space-8);
+}
+
+.info-label {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-medium);
+}
+
+.charts-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: var(--space-24);
+  margin-bottom: var(--space-32);
+}
+
+.chart-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-24);
+  box-shadow: var(--shadow-md);
+}
+
+.chart-title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+  margin-bottom: var(--space-20);
+}
+
+.chart-container {
+  position: relative;
+  height: 300px;
+}
+
+.chart-container canvas {
+  max-height: 300px;
+}
+
+.table-container {
+  background: var(--color-surface);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-24);
+  box-shadow: var(--shadow-md);
+  margin-bottom: var(--space-32);
+  overflow-x: auto;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-sm);
+}
+
+.data-table thead {
+  background: var(--color-secondary);
+  position: sticky;
+  top: 0;
+}
+
+.data-table th {
+  padding: var(--space-12);
+  text-align: left;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+  border-bottom: 2px solid var(--color-border);
+}
+
+.data-table td {
+  padding: var(--space-12);
+  border-bottom: 1px solid var(--color-card-border-inner);
+  color: var(--color-text);
+}
+
+.data-table tbody tr:hover {
+  background: var(--color-secondary);
+}
+
+.company-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-16);
+  margin-bottom: var(--space-32);
+}
+
+.company-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-20);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard);
+}
+
+.company-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.company-name {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+  margin-bottom: var(--space-8);
+}
+
+.company-info {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-4);
+}
+
+.footer {
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+  padding: var(--space-24);
+  text-align: center;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin-top: auto;
+}
+
+@media (max-width: 768px) {
+  .header h1 {
+    font-size: var(--font-size-2xl);
+  }
+  
+  .kpi-grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+  
+  .charts-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .nav-tab {
+    font-size: var(--font-size-sm);
+    padding: var(--space-12) var(--space-16);
+  }
+  
+  .company-cards {
+    grid-template-columns: 1fr;
+  }
+  
+  .table-container {
+    padding: var(--space-16);
+  }
+}
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <header class="header">
+            <h1>Vizianagaram District Profile</h1>
+            <p>Andhra Pradesh</p>
+        </header>
+
+        <nav class="navigation">
+            <div class="nav-container">
+                <ul class="nav-tabs">
+                    <li class="nav-tab active" data-tab="overview">📊 Overview</li>
+                    <li class="nav-tab" data-tab="demographics">👥 Demographics</li>
+                    <li class="nav-tab" data-tab="education">🎓 Educational Institutions</li>
+                    <li class="nav-tab" data-tab="workforce">💼 Workforce</li>
+                    <li class="nav-tab" data-tab="industries">🏭 Industries &amp; Sectors</li>
+                </ul>
+            </div>
+        </nav>
+
+        <main class="main-content">
+            <!-- SECTION 1: OVERVIEW -->
+            <section id="overview" class="section active">
+                <h2 class="section-title">District Overview</h2>
+                
+                <div class="kpi-grid">
+                    <div class="kpi-card" style="background: var(--color-bg-1);">
+                        <div class="kpi-label">Total Population</div>
+                        <div class="kpi-value">19,30,811</div>
+                    </div>
+                    <div class="kpi-card" style="background: var(--color-bg-2);">
+                        <div class="kpi-label">Area</div>
+                        <div class="kpi-value">4,124</div>
+                        <div class="kpi-subtitle">sq km</div>
+                    </div>
+                    <div class="kpi-card" style="background: var(--color-bg-3);">
+                        <div class="kpi-label">Density</div>
+                        <div class="kpi-value">468</div>
+                        <div class="kpi-subtitle">per sq km</div>
+                    </div>
+                    <div class="kpi-card" style="background: var(--color-bg-4);">
+                        <div class="kpi-label">Growth Rate</div>
+                        <div class="kpi-value">4.22%</div>
+                    </div>
+                    <div class="kpi-card" style="background: var(--color-bg-5);">
+                        <div class="kpi-label">Sex Ratio</div>
+                        <div class="kpi-value">1,010</div>
+                        <div class="kpi-subtitle">females per 1000 males</div>
+                    </div>
+                    <div class="kpi-card" style="background: var(--color-bg-6);">
+                        <div class="kpi-label">Literacy Rate</div>
+                        <div class="kpi-value">53.21%</div>
+                    </div>
+                    <div class="kpi-card" style="background: var(--color-bg-7);">
+                        <div class="kpi-label">Total Institutions</div>
+                        <div class="kpi-value">2,481</div>
+                        <div class="kpi-subtitle">Educational Institutions</div>
+                    </div>
+                    <div class="kpi-card" style="background: var(--color-bg-8);">
+                        <div class="kpi-label">Bank Branches</div>
+                        <div class="kpi-value">121</div>
+                        <div class="kpi-subtitle">Infrastructure/Finance</div>
+                    </div>
+                    <div class="kpi-card" style="background: var(--color-bg-1);">
+                        <div class="kpi-label">Total Industries</div>
+                        <div class="kpi-value">391</div>
+                        <div class="kpi-subtitle">All sectors combined</div>
+                    </div>
+                    <div class="kpi-card" style="background: var(--color-bg-2);">
+                        <div class="kpi-label">Road Length</div>
+                        <div class="kpi-value">3,500</div>
+                        <div class="kpi-subtitle">km</div>
+                    </div>
+                </div>
+
+                <h3 class="section-subtitle">Quick Facts</h3>
+                
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="info-value">27</div>
+                        <div class="info-label">Mandals</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-value">982</div>
+                        <div class="info-label">Revenue Villages</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-value">777</div>
+                        <div class="info-label">Gram Panchayats</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-value">22.26%</div>
+                        <div class="info-label">Urban Population</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-value">10.73%</div>
+                        <div class="info-label">SC Population</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-value">2.38%</div>
+                        <div class="info-label">ST Population</div>
+                    </div>
+                </div>
+
+                <div class="charts-container">
+                    <div class="chart-card">
+                        <h3 class="chart-title">Rural vs Urban Population</h3>
+                        <div class="chart-container">
+                            <canvas id="overviewRuralUrbanChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-card">
+                        <h3 class="chart-title">Top 5 Mandals by Population</h3>
+                        <div class="chart-container">
+                            <canvas id="overviewMandalChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 2: DEMOGRAPHICS -->
+            <section id="demographics" class="section">
+                <h2 class="section-title">Demographics</h2>
+                
+                <div class="kpi-grid">
+                    <div class="kpi-card">
+                        <div class="kpi-label">Total Population</div>
+                        <div class="kpi-value">19,30,811</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-label">Male</div>
+                        <div class="kpi-value">9,60,450</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-label">Female</div>
+                        <div class="kpi-value">9,70,361</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-label">Sex Ratio</div>
+                        <div class="kpi-value">1,010</div>
+                        <div class="kpi-subtitle">females per 1000 males</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-label">Child Population (0-6)</div>
+                        <div class="kpi-value">2,20,826</div>
+                    </div>
+                </div>
+
+                <h3 class="section-subtitle">Literacy Data</h3>
+                <div class="kpi-grid">
+                    <div class="kpi-card" style="background: var(--color-bg-1);">
+                        <div class="kpi-label">Overall Literacy Rate</div>
+                        <div class="kpi-value">53.21%</div>
+                    </div>
+                    <div class="kpi-card" style="background: var(--color-bg-2);">
+                        <div class="kpi-label">Male Literacy Rate</div>
+                        <div class="kpi-value">61.06%</div>
+                    </div>
+                    <div class="kpi-card" style="background: var(--color-bg-3);">
+                        <div class="kpi-label">Female Literacy Rate</div>
+                        <div class="kpi-value">45.45%</div>
+                    </div>
+                    <div class="kpi-card" style="background: var(--color-bg-4);">
+                        <div class="kpi-label">Literacy Gender Gap</div>
+                        <div class="kpi-value">15.61</div>
+                        <div class="kpi-subtitle">percentage points</div>
+                    </div>
+                    <div class="kpi-card" style="background: var(--color-bg-5);">
+                        <div class="kpi-label">Total Literates</div>
+                        <div class="kpi-value">10,21,000</div>
+                    </div>
+                    <div class="kpi-card" style="background: var(--color-bg-6);">
+                        <div class="kpi-label">Male Literates</div>
+                        <div class="kpi-value">5,83,000</div>
+                    </div>
+                    <div class="kpi-card" style="background: var(--color-bg-7);">
+                        <div class="kpi-label">Female Literates</div>
+                        <div class="kpi-value">4,37,000</div>
+                    </div>
+                </div>
+
+                <h3 class="section-subtitle">Mandal-wise Population</h3>
+                
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Mandal</th>
+                                <th>Area (sq km)</th>
+                                <th>Total Pop</th>
+                                <th>Male Pop</th>
+                                <th>Female Pop</th>
+                                <th>Density</th>
+                                <th>Sex Ratio</th>
+                                <th>Villages</th>
+                                <th>Households</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Vizianagaram</td>
+                                <td>124</td>
+                                <td>283,550</td>
+                                <td>139,900</td>
+                                <td>143,650</td>
+                                <td>2,280</td>
+                                <td>1,027</td>
+                                <td>38</td>
+                                <td>71,570</td>
+                            </tr>
+                            <tr>
+                                <td>Bobbili</td>
+                                <td>207</td>
+                                <td>122,964</td>
+                                <td>61,092</td>
+                                <td>61,872</td>
+                                <td>594</td>
+                                <td>1,013</td>
+                                <td>67</td>
+                                <td>31,566</td>
+                            </tr>
+                            <tr>
+                                <td>Rajam</td>
+                                <td>129</td>
+                                <td>94,039</td>
+                                <td>47,017</td>
+                                <td>47,022</td>
+                                <td>732</td>
+                                <td>1,000</td>
+                                <td>46</td>
+                                <td>23,493</td>
+                            </tr>
+                            <tr>
+                                <td>Nellimarla</td>
+                                <td>161</td>
+                                <td>77,031</td>
+                                <td>38,225</td>
+                                <td>38,806</td>
+                                <td>478</td>
+                                <td>1,015</td>
+                                <td>58</td>
+                                <td>19,037</td>
+                            </tr>
+                            <tr>
+                                <td>Srungavarapukota</td>
+                                <td>148</td>
+                                <td>75,917</td>
+                                <td>37,123</td>
+                                <td>38,794</td>
+                                <td>512</td>
+                                <td>1,045</td>
+                                <td>94</td>
+                                <td>19,622</td>
+                            </tr>
+                            <tr>
+                                <td>Gajapathinagaram</td>
+                                <td>145</td>
+                                <td>70,000</td>
+                                <td>34,800</td>
+                                <td>35,200</td>
+                                <td>483</td>
+                                <td>1,011</td>
+                                <td>50</td>
+                                <td>18,000</td>
+                            </tr>
+                            <tr>
+                                <td>Parvathipuram</td>
+                                <td>180</td>
+                                <td>72,000</td>
+                                <td>35,900</td>
+                                <td>36,100</td>
+                                <td>400</td>
+                                <td>1,006</td>
+                                <td>60</td>
+                                <td>18,500</td>
+                            </tr>
+                            <tr>
+                                <td>Salur</td>
+                                <td>156</td>
+                                <td>68,000</td>
+                                <td>33,800</td>
+                                <td>34,200</td>
+                                <td>436</td>
+                                <td>1,012</td>
+                                <td>55</td>
+                                <td>17,500</td>
+                            </tr>
+                            <tr>
+                                <td>Cheepurupalle</td>
+                                <td>134</td>
+                                <td>65,000</td>
+                                <td>32,300</td>
+                                <td>32,700</td>
+                                <td>485</td>
+                                <td>1,012</td>
+                                <td>48</td>
+                                <td>16,800</td>
+                            </tr>
+                            <tr>
+                                <td>Badangi</td>
+                                <td>142</td>
+                                <td>58,000</td>
+                                <td>28,800</td>
+                                <td>29,200</td>
+                                <td>408</td>
+                                <td>1,014</td>
+                                <td>52</td>
+                                <td>15,000</td>
+                            </tr>
+                            <tr>
+                                <td>Bhogapuram</td>
+                                <td>128</td>
+                                <td>56,000</td>
+                                <td>27,800</td>
+                                <td>28,200</td>
+                                <td>438</td>
+                                <td>1,014</td>
+                                <td>44</td>
+                                <td>14,500</td>
+                            </tr>
+                            <tr>
+                                <td>Garividi</td>
+                                <td>135</td>
+                                <td>54,000</td>
+                                <td>26,800</td>
+                                <td>27,200</td>
+                                <td>400</td>
+                                <td>1,015</td>
+                                <td>49</td>
+                                <td>14,000</td>
+                            </tr>
+                            <tr>
+                                <td>Jami</td>
+                                <td>118</td>
+                                <td>50,000</td>
+                                <td>24,800</td>
+                                <td>25,200</td>
+                                <td>424</td>
+                                <td>1,016</td>
+                                <td>42</td>
+                                <td>13,000</td>
+                            </tr>
+                            <tr>
+                                <td>Merakamudidam</td>
+                                <td>125</td>
+                                <td>48,000</td>
+                                <td>23,800</td>
+                                <td>24,200</td>
+                                <td>384</td>
+                                <td>1,017</td>
+                                <td>46</td>
+                                <td>12,500</td>
+                            </tr>
+                            <tr>
+                                <td>Denkada</td>
+                                <td>140</td>
+                                <td>47,000</td>
+                                <td>23,300</td>
+                                <td>23,700</td>
+                                <td>336</td>
+                                <td>1,017</td>
+                                <td>53</td>
+                                <td>12,200</td>
+                            </tr>
+                            <tr>
+                                <td>Kurupam</td>
+                                <td>155</td>
+                                <td>45,000</td>
+                                <td>22,300</td>
+                                <td>22,700</td>
+                                <td>290</td>
+                                <td>1,018</td>
+                                <td>58</td>
+                                <td>11,800</td>
+                            </tr>
+                            <tr>
+                                <td>Vepada</td>
+                                <td>132</td>
+                                <td>43,000</td>
+                                <td>21,300</td>
+                                <td>21,700</td>
+                                <td>326</td>
+                                <td>1,019</td>
+                                <td>47</td>
+                                <td>11,200</td>
+                            </tr>
+                            <tr>
+                                <td>Kothavalasa</td>
+                                <td>148</td>
+                                <td>42,000</td>
+                                <td>20,800</td>
+                                <td>21,200</td>
+                                <td>284</td>
+                                <td>1,019</td>
+                                <td>54</td>
+                                <td>10,900</td>
+                            </tr>
+                            <tr>
+                                <td>Mentada</td>
+                                <td>139</td>
+                                <td>40,000</td>
+                                <td>19,800</td>
+                                <td>20,200</td>
+                                <td>288</td>
+                                <td>1,020</td>
+                                <td>51</td>
+                                <td>10,400</td>
+                            </tr>
+                            <tr>
+                                <td>Pusapatirega</td>
+                                <td>127</td>
+                                <td>38,000</td>
+                                <td>18,800</td>
+                                <td>19,200</td>
+                                <td>299</td>
+                                <td>1,021</td>
+                                <td>45</td>
+                                <td>9,900</td>
+                            </tr>
+                            <tr>
+                                <td>Seethanagaram</td>
+                                <td>136</td>
+                                <td>36,000</td>
+                                <td>17,800</td>
+                                <td>18,200</td>
+                                <td>265</td>
+                                <td>1,022</td>
+                                <td>49</td>
+                                <td>9,400</td>
+                            </tr>
+                            <tr>
+                                <td>Gantyada</td>
+                                <td>143</td>
+                                <td>35,000</td>
+                                <td>17,300</td>
+                                <td>17,700</td>
+                                <td>245</td>
+                                <td>1,023</td>
+                                <td>52</td>
+                                <td>9,100</td>
+                            </tr>
+                            <tr>
+                                <td>Komarada</td>
+                                <td>151</td>
+                                <td>33,000</td>
+                                <td>16,300</td>
+                                <td>16,700</td>
+                                <td>219</td>
+                                <td>1,025</td>
+                                <td>56</td>
+                                <td>8,600</td>
+                            </tr>
+                            <tr>
+                                <td>Dattirajeru</td>
+                                <td>138</td>
+                                <td>32,000</td>
+                                <td>15,800</td>
+                                <td>16,200</td>
+                                <td>232</td>
+                                <td>1,025</td>
+                                <td>48</td>
+                                <td>8,300</td>
+                            </tr>
+                            <tr>
+                                <td>Therlam</td>
+                                <td>146</td>
+                                <td>30,000</td>
+                                <td>14,800</td>
+                                <td>15,200</td>
+                                <td>205</td>
+                                <td>1,027</td>
+                                <td>53</td>
+                                <td>7,800</td>
+                            </tr>
+                            <tr>
+                                <td>Pachipenta</td>
+                                <td>152</td>
+                                <td>28,000</td>
+                                <td>13,800</td>
+                                <td>14,200</td>
+                                <td>184</td>
+                                <td>1,029</td>
+                                <td>57</td>
+                                <td>7,300</td>
+                            </tr>
+                            <tr>
+                                <td>Lakkavarapukota</td>
+                                <td>158</td>
+                                <td>27,310</td>
+                                <td>13,500</td>
+                                <td>13,810</td>
+                                <td>173</td>
+                                <td>1,023</td>
+                                <td>59</td>
+                                <td>7,100</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="charts-container">
+                    <div class="chart-card">
+                        <h3 class="chart-title">Rural vs Urban Distribution</h3>
+                        <div class="chart-container">
+                            <canvas id="demoRuralUrbanChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-card">
+                        <h3 class="chart-title">SC/ST Population by Mandal (Top 5)</h3>
+                        <div class="chart-container">
+                            <canvas id="demoSCSTChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-card">
+                        <h3 class="chart-title">Gender Distribution</h3>
+                        <div class="chart-container">
+                            <canvas id="demoGenderChart"></canvas>
+                        </div>
+                    </div>
+                   
+                </div>
+            </section>
+
+            <!-- SECTION 3: EDUCATIONAL INSTITUTIONS -->
+            <section id="education" class="section">
+                <h2 class="section-title">Educational Institutions</h2>
+                
+                <div class="kpi-grid">
+                    <div class="kpi-card" style="background: var(--color-bg-1);">
+                        <div class="kpi-label">Total Institutions</div>
+                        <div class="kpi-value">2,481</div>
+                    </div>
+                    <div class="kpi-card" style="background: var(--color-bg-2);">
+                        <div class="kpi-label">Primary Schools</div>
+                        <div class="kpi-value">1,636</div>
+                    </div>
+                    <div class="kpi-card" style="background: var(--color-bg-3);">
+                        <div class="kpi-label">High Schools</div>
+                        <div class="kpi-value">335</div>
+                    </div>
+                    <div class="kpi-card" style="background: var(--color-bg-4);">
+                        <div class="kpi-label">Degree Colleges</div>
+                        <div class="kpi-value">69</div>
+                    </div>
+                    <div class="kpi-card" style="background: var(--color-bg-5);">
+                        <div class="kpi-label">Engineering Colleges</div>
+                        <div class="kpi-value">10</div>
+                    </div>
+                    <div class="kpi-card" style="background: var(--color-bg-6);">
+                        <div class="kpi-label">ITIs</div>
+                        <div class="kpi-value">9</div>
+                    </div>
+                    <div class="kpi-card" style="background: var(--color-bg-7);">
+                        <div class="kpi-label">Polytechnics</div>
+                        <div class="kpi-value">12</div>
+                    </div>
+                    <div class="kpi-card" style="background: var(--color-bg-8);">
+                        <div class="kpi-label">Total Students</div>
+                        <div class="kpi-value">330,276</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-label">Total Teachers</div>
+                        <div class="kpi-value">12,739</div>
+                    </div>
+                    <div class="kpi-card" style="background: var(--color-bg-1);">
+                        <div class="kpi-label">Skill Development Centres</div>
+                        <div class="kpi-value">12</div>
+                    </div>
+                    <div class="kpi-card" style="background: var(--color-bg-2);">
+                        <div class="kpi-label">Total Skill Development Infrastructure</div>
+                        <div class="kpi-value">33</div>
+                        <div class="kpi-subtitle">ITI (9) + Polytechnic (12) + Skill Centres (12)</div>
+                    </div>
+                </div>
+
+                <h3 class="section-subtitle">Institution Breakdown</h3>
+                
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Institution Type</th>
+                                <th>Government</th>
+                                <th>Private</th>
+                                <th>Total</th>
+                                <th>Teachers</th>
+                                <th>Students</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Primary Schools</td>
+                                <td>413</td>
+                                <td>1,223</td>
+                                <td>1,636</td>
+                                <td>2,750</td>
+                                <td>103,762</td>
+                            </tr>
+                            <tr>
+                                <td>Upper Primary</td>
+                                <td>6</td>
+                                <td>218</td>
+                                <td>224</td>
+                                <td>1,132</td>
+                                <td>39,129</td>
+                            </tr>
+                            <tr>
+                                <td>High Schools</td>
+                                <td>82</td>
+                                <td>253</td>
+                                <td>335</td>
+                                <td>5,347</td>
+                                <td>121,829</td>
+                            </tr>
+                            <tr>
+                                <td>Junior Colleges</td>
+                                <td>65</td>
+                                <td>77</td>
+                                <td>142</td>
+                                <td>1,207</td>
+                                <td>22,001</td>
+                            </tr>
+                            <tr>
+                                <td>Degree Colleges</td>
+                                <td>6</td>
+                                <td>63</td>
+                                <td>69</td>
+                                <td>1,471</td>
+                                <td>37,823</td>
+                            </tr>
+                            <tr>
+                                <td>Engineering</td>
+                                <td>1</td>
+                                <td>9</td>
+                                <td>10</td>
+                                <td>235</td>
+                                <td>4,013</td>
+                            </tr>
+                            <tr>
+                                <td>Polytechnics</td>
+                                <td>1</td>
+                                <td>11</td>
+                                <td>12</td>
+                                <td>33</td>
+                                <td>897</td>
+                            </tr>
+                            <tr>
+                                <td>ITI</td>
+                                <td>1</td>
+                                <td>8</td>
+                                <td>9</td>
+                                <td>20</td>
+                                <td>315</td>
+                            </tr>
+                            <tr>
+                                <td>Skill Development Centres</td>
+                                <td>2</td>
+                                <td>10</td>
+                                <td>12</td>
+                                <td>18</td>
+                                <td>287</td>
+                            </tr>
+                            <tr>
+                                <td>Medical</td>
+                                <td>0</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>387</td>
+                                <td>150</td>
+                            </tr>
+                            <tr>
+                                <td>B.Ed</td>
+                                <td>3</td>
+                                <td>34</td>
+                                <td>37</td>
+                                <td>108</td>
+                                <td>640</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="charts-container">
+                    <div class="chart-card">
+                        <h3 class="chart-title">Government vs Private Institutions</h3>
+                        <div class="chart-container">
+                            <canvas id="eduGovtPrivateChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-card">
+                        <h3 class="chart-title">Student Enrollment by Level</h3>
+                        <div class="chart-container">
+                            <canvas id="eduEnrollmentChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-card">
+                        <h3 class="chart-title">Higher Education Distribution</h3>
+                        <div class="chart-container">
+                            <canvas id="eduHigherEdChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 4: WORKFORCE -->
+            <section id="workforce" class="section">
+                <h2 class="section-title">Workforce Statistics</h2>
+                
+                <h3 class="section-subtitle">Worker Status</h3>
+                <div class="kpi-grid">
+                    <div class="kpi-card" style="background: var(--color-bg-1);">
+                        <div class="kpi-label">Main Workers</div>
+                        <div class="kpi-value">7,71,931</div>
+                        <div class="kpi-subtitle">39.98% of population</div>
+                    </div>
+                    <div class="kpi-card" style="background: var(--color-bg-2);">
+                        <div class="kpi-label">Marginal Workers</div>
+                        <div class="kpi-value">1,62,768</div>
+                        <div class="kpi-subtitle">8.43% of population</div>
+                    </div>
+                    <div class="kpi-card" style="background: var(--color-bg-3);">
+                        <div class="kpi-label">Non-Workers</div>
+                        <div class="kpi-value">9,96,112</div>
+                        <div class="kpi-subtitle">51.59% of population</div>
+                    </div>
+                </div>
+
+                <h3 class="section-subtitle">Occupation Categories (Sorted by Count)</h3>
+                <div class="kpi-grid">
+                    <div class="kpi-card" style="background: var(--color-bg-1);">
+                        <div class="kpi-label">Agricultural Labourers</div>
+                        <div class="kpi-value">4,24,826</div>
+                        <div class="kpi-subtitle">22.00% of population</div>
+                    </div>
+                    <div class="kpi-card" style="background: var(--color-bg-2);">
+                        <div class="kpi-label">Other Workers</div>
+                        <div class="kpi-value">3,15,331</div>
+                        <div class="kpi-subtitle">16.33% of population</div>
+                    </div>
+                    <div class="kpi-card" style="background: var(--color-bg-3);">
+                        <div class="kpi-label">Cultivators</div>
+                        <div class="kpi-value">1,70,556</div>
+                        <div class="kpi-subtitle">8.83% of population</div>
+                    </div>
+                    <div class="kpi-card" style="background: var(--color-bg-4);">
+                        <div class="kpi-label">Household Industry</div>
+                        <div class="kpi-value">23,986</div>
+                        <div class="kpi-subtitle">1.24% of population</div>
+                    </div>
+                </div>
+
+                <h3 class="section-subtitle">Mandal-wise Workforce (Top 10)</h3>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Mandal</th>
+                                <th>Total Workers</th>
+                                <th>Main Workers %</th>
+                                <th>Marginal Workers %</th>
+                                <th>Cultivators</th>
+                                <th>Agri Labourers</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Vizianagaram</td>
+                                <td>113,420</td>
+                                <td>38.5%</td>
+                                <td>8.5%</td>
+                                <td>15,200</td>
+                                <td>45,300</td>
+                            </tr>
+                            <tr>
+                                <td>Bobbili</td>
+                                <td>49,186</td>
+                                <td>38.2%</td>
+                                <td>8.8%</td>
+                                <td>8,500</td>
+                                <td>22,400</td>
+                            </tr>
+                            <tr>
+                                <td>Rajam</td>
+                                <td>37,616</td>
+                                <td>38.0%</td>
+                                <td>9.0%</td>
+                                <td>6,800</td>
+                                <td>18,200</td>
+                            </tr>
+                            <tr>
+                                <td>Nellimarla</td>
+                                <td>30,812</td>
+                                <td>38.5%</td>
+                                <td>8.5%</td>
+                                <td>5,500</td>
+                                <td>14,800</td>
+                            </tr>
+                            <tr>
+                                <td>Srungavarapukota</td>
+                                <td>30,367</td>
+                                <td>38.8%</td>
+                                <td>8.2%</td>
+                                <td>5,400</td>
+                                <td>14,600</td>
+                            </tr>
+                            <tr>
+                                <td>Gajapathinagaram</td>
+                                <td>28,000</td>
+                                <td>38.0%</td>
+                                <td>8.0%</td>
+                                <td>5,000</td>
+                                <td>13,500</td>
+                            </tr>
+                            <tr>
+                                <td>Parvathipuram</td>
+                                <td>28,800</td>
+                                <td>38.5%</td>
+                                <td>8.5%</td>
+                                <td>5,200</td>
+                                <td>13,900</td>
+                            </tr>
+                            <tr>
+                                <td>Salur</td>
+                                <td>27,200</td>
+                                <td>38.2%</td>
+                                <td>8.8%</td>
+                                <td>4,900</td>
+                                <td>13,100</td>
+                            </tr>
+                            <tr>
+                                <td>Cheepurupalle</td>
+                                <td>26,000</td>
+                                <td>38.5%</td>
+                                <td>8.5%</td>
+                                <td>4,700</td>
+                                <td>12,500</td>
+                            </tr>
+                            <tr>
+                                <td>Badangi</td>
+                                <td>23,200</td>
+                                <td>38.0%</td>
+                                <td>9.0%</td>
+                                <td>4,200</td>
+                                <td>11,200</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="charts-container">
+                    <div class="chart-card">
+                        <h3 class="chart-title">Worker Status Distribution</h3>
+                        <div class="chart-container">
+                            <canvas id="workforceStatusChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-card">
+                        <h3 class="chart-title">Occupation Categories</h3>
+                        <div class="chart-container">
+                            <canvas id="workforceOccupationChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-card">
+                        <h3 class="chart-title">Agriculture vs Non-agriculture Workers</h3>
+                        <div class="chart-container">
+                            <canvas id="workforceAgriChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 5: INDUSTRIES AND SECTORS -->
+            <section id="industries" class="section">
+                <h2 class="section-title">Industries &amp; Sectors</h2>
+                
+                <div class="kpi-grid">
+                    <div class="kpi-card" style="background: var(--color-bg-1);">
+                        <div class="kpi-label">Large &amp; Medium Industries</div>
+                        <div class="kpi-value">94</div>
+                        <div class="kpi-subtitle">units</div>
+                    </div>
+                    <div class="kpi-card" style="background: var(--color-bg-2);">
+                        <div class="kpi-label">Small Scale Industries</div>
+                        <div class="kpi-value">98</div>
+                        <div class="kpi-subtitle">units</div>
+                    </div>
+                    <div class="kpi-card" style="background: var(--color-bg-3);">
+                        <div class="kpi-label">Total Factories</div>
+                        <div class="kpi-value">97</div>
+                    </div>
+                    <div class="kpi-card" style="background: var(--color-bg-4);">
+                        <div class="kpi-label">Total Employment</div>
+                        <div class="kpi-value">45,000</div>
+                        <div class="kpi-subtitle">estimated</div>
+                    </div>
+                    <div class="kpi-card" style="background: var(--color-bg-5);">
+                        <div class="kpi-label">Total Establishments</div>
+                        <div class="kpi-value">15,847</div>
+                    </div>
+                </div>
+
+                <h3 class="section-subtitle">Major Employers</h3>
+                <div class="company-cards">
+                    <div class="company-card" style="background: var(--color-bg-1);">
+                        <div class="company-name">Nellimarla Jute Mills</div>
+                        <div class="company-info">Location: Nellimarla</div>
+                        <div class="company-info"><strong>Employees: 6,390</strong></div>
+                    </div>
+                    <div class="company-card" style="background: var(--color-bg-2);">
+                        <div class="company-name">AP Fibers Ltd</div>
+                        <div class="company-info">Location: Vizianagaram</div>
+                        <div class="company-info"><strong>Employees: 2,550</strong></div>
+                    </div>
+                    <div class="company-card" style="background: var(--color-bg-3);">
+                        <div class="company-name">Steel Exchange Pvt Ltd</div>
+                        <div class="company-info"><strong>Employees: 1,400</strong></div>
+                    </div>
+                    <div class="company-card" style="background: var(--color-bg-4);">
+                        <div class="company-name">Mylon Laboratories</div>
+                        <div class="company-info"><strong>Employees: 1,100</strong></div>
+                    </div>
+                    <div class="company-card" style="background: var(--color-bg-5);">
+                        <div class="company-name">Ferro Alloys Corporation Ltd (FACOR)</div>
+                        <div class="company-info">Location: Garividi</div>
+                        <div class="company-info"><strong>Employees: 664</strong></div>
+                    </div>
+                    <div class="company-card" style="background: var(--color-bg-6);">
+                        <div class="company-name">Jindal Stainless Ltd</div>
+                        <div class="company-info"><strong>Employees: 533</strong></div>
+                    </div>
+                </div>
+
+                <h3 class="section-subtitle">Economic Sectors</h3>
+                <div class="kpi-grid">
+                    <div class="kpi-card" style="background: var(--color-bg-3);">
+                        <div class="kpi-label">Agriculture &amp; Allied Sector</div>
+                        <div class="kpi-value">252</div>
+                        <div class="kpi-subtitle">units | 4,684 employees</div>
+                    </div>
+                    <div class="kpi-card" style="background: var(--color-bg-1);">
+                        <div class="kpi-label">Manufacturing Sector</div>
+                        <div class="kpi-value">139</div>
+                        <div class="kpi-subtitle">units | 13,000+ employees</div>
+                    </div>
+                    <div class="kpi-card" style="background: var(--color-bg-6);">
+                        <div class="kpi-label">Services Sector</div>
+                        <div class="kpi-value">15,456</div>
+                        <div class="kpi-subtitle">establishments</div>
+                    </div>
+                </div>
+
+                <h3 class="section-subtitle">Detailed Industry Types</h3>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Industry Type</th>
+                                <th>Units</th>
+                                <th>Employment</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Textile/Jute Mills</td>
+                                <td>3</td>
+                                <td>6,390</td>
+                            </tr>
+                            <tr>
+                                <td>Rice Mills</td>
+                                <td>215</td>
+                                <td>2,896</td>
+                            </tr>
+                            <tr>
+                                <td>Ferro Alloys</td>
+                                <td>14</td>
+                                <td>2,575</td>
+                            </tr>
+                            <tr>
+                                <td>Cashew Processing</td>
+                                <td>28</td>
+                                <td>1,510</td>
+                            </tr>
+                            <tr>
+                                <td>Sugar Factories</td>
+                                <td>2</td>
+                                <td>1,184</td>
+                            </tr>
+                            <tr>
+                                <td>Repair &amp; Servicing</td>
+                                <td>95</td>
+                                <td>640</td>
+                            </tr>
+                            <tr>
+                                <td>Dairy Products</td>
+                                <td>5</td>
+                                <td>133</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="charts-container">
+                    <div class="chart-card">
+                        <h3 class="chart-title">Top Employers by Number of Employees</h3>
+                        <div class="chart-container">
+                            <canvas id="industryEmployersChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-card">
+                        <h3 class="chart-title">Sector Distribution by Employment</h3>
+                        <div class="chart-container">
+                            <canvas id="industrySectorChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-card">
+                        <h3 class="chart-title">Industry Types by Employment</h3>
+                        <div class="chart-container">
+                            <canvas id="industryTypesChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+     
+
+    <script>
+        // Navigation functionality
+        const navTabs = document.querySelectorAll('.nav-tab');
+        const sections = document.querySelectorAll('.section');
+
+        navTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const targetTab = tab.dataset.tab;
+                
+                navTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                sections.forEach(section => {
+                    section.classList.remove('active');
+                    if (section.id === targetTab) {
+                        section.classList.add('active');
+                    }
+                });
+            });
+        });
+
+        // Chart colors
+        const chartColors = ['#1FB8CD', '#FFC185', '#B4413C', '#ECEBD5', '#5D878F', '#DB4545', '#D2BA4C', '#964325', '#944454', '#13343B'];
+
+        // OVERVIEW CHARTS
+        const overviewRuralUrbanCtx = document.getElementById('overviewRuralUrbanChart').getContext('2d');
+        new Chart(overviewRuralUrbanCtx, {
+            type: 'pie',
+            data: {
+                labels: ['Rural (77.74%)', 'Urban (22.26%)'],
+                datasets: [{
+                    data: [1501000, 429000],
+                    backgroundColor: [chartColors[0], chartColors[1]],
+                    borderWidth: 2,
+                    borderColor: '#fff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { padding: 15, font: { size: 12 } }
+                    }
+                }
+            }
+        });
+
+        const overviewMandalCtx = document.getElementById('overviewMandalChart').getContext('2d');
+        new Chart(overviewMandalCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Vizianagaram', 'Bobbili', 'Rajam', 'Nellimarla', 'Srungavarapukota'],
+                datasets: [{
+                    label: 'Population',
+                    data: [283550, 122964, 94039, 77031, 75917],
+                    backgroundColor: chartColors[0],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return value.toLocaleString();
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // DEMOGRAPHICS CHARTS
+        const demoRuralUrbanCtx = document.getElementById('demoRuralUrbanChart').getContext('2d');
+        new Chart(demoRuralUrbanCtx, {
+            type: 'pie',
+            data: {
+                labels: ['Rural (77.74%)', 'Urban (22.26%)'],
+                datasets: [{
+                    data: [1501000, 429000],
+                    backgroundColor: [chartColors[0], chartColors[1]],
+                    borderWidth: 2,
+                    borderColor: '#fff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { padding: 15, font: { size: 12 } }
+                    }
+                }
+            }
+        });
+
+        const demoSCSTCtx = document.getElementById('demoSCSTChart').getContext('2d');
+        new Chart(demoSCSTCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Vizianagaram', 'Bobbili', 'Rajam', 'Nellimarla', 'Srungavarapukota'],
+                datasets: [
+                    {
+                        label: 'SC Population',
+                        data: [30400, 13200, 10100, 8300, 8100],
+                        backgroundColor: chartColors[1],
+                        borderWidth: 0
+                    },
+                    {
+                        label: 'ST Population',
+                        data: [6750, 2930, 2240, 1830, 1810],
+                        backgroundColor: chartColors[2],
+                        borderWidth: 0
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return value.toLocaleString();
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        const demoGenderCtx = document.getElementById('demoGenderChart').getContext('2d');
+        new Chart(demoGenderCtx, {
+            type: 'pie',
+            data: {
+                labels: ['Male (49.75%)', 'Female (50.25%)'],
+                datasets: [{
+                    data: [960450, 970361],
+                    backgroundColor: ['#1FB8CD', '#FF5459'],
+                    borderWidth: 2,
+                    borderColor: '#fff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { padding: 15, font: { size: 12 } }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const label = context.label || '';
+                                const value = context.parsed.toLocaleString();
+                                return label + ': ' + value;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        const demoLiteracyCtx = document.getElementById('demoLiteracyChart').getContext('2d');
+        new Chart(demoLiteracyCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Literacy Rate (%)', 'Total Literates'],
+                datasets: [
+                    {
+                        label: 'Male',
+                        data: [61.06, 583000],
+                        backgroundColor: chartColors[0],
+                        borderWidth: 0
+                    },
+                    {
+                        label: 'Female',
+                        data: [45.45, 437000],
+                        backgroundColor: '#FF5459',
+                        borderWidth: 0
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return value.toLocaleString();
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { padding: 15, font: { size: 12 } }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const label = context.dataset.label || '';
+                                const value = context.parsed.y.toLocaleString();
+                                return label + ': ' + value;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // EDUCATION CHARTS
+        const eduGovtPrivateCtx = document.getElementById('eduGovtPrivateChart').getContext('2d');
+        new Chart(eduGovtPrivateCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Primary', 'Upper Primary', 'High Schools', 'Jr. Colleges', 'Degree', 'Engineering', 'Polytechnics', 'ITI'],
+                datasets: [
+                    {
+                        label: 'Government',
+                        data: [413, 6, 82, 65, 6, 1, 1, 1],
+                        backgroundColor: chartColors[0],
+                        borderWidth: 0
+                    },
+                    {
+                        label: 'Private',
+                        data: [1223, 218, 253, 77, 63, 9, 11, 8],
+                        backgroundColor: chartColors[1],
+                        borderWidth: 0
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: { stacked: true },
+                    y: { stacked: true, beginAtZero: true }
+                }
+            }
+        });
+
+        const eduEnrollmentCtx = document.getElementById('eduEnrollmentChart').getContext('2d');
+        new Chart(eduEnrollmentCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Primary', 'Upper Primary', 'High Schools', 'Jr. Colleges', 'Degree', 'Engineering'],
+                datasets: [{
+                    label: 'Students',
+                    data: [103762, 39129, 121829, 22001, 37823, 4013],
+                    backgroundColor: chartColors[0],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return value.toLocaleString();
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        const eduHigherEdCtx = document.getElementById('eduHigherEdChart').getContext('2d');
+        new Chart(eduHigherEdCtx, {
+            type: 'pie',
+            data: {
+                labels: ['Degree (69)', 'Engineering (10)', 'Polytechnics (12)', 'ITI (9)', 'Medical (1)', 'B.Ed (37)'],
+                datasets: [{
+                    data: [69, 10, 12, 9, 1, 37],
+                    backgroundColor: chartColors.slice(0, 6),
+                    borderWidth: 2,
+                    borderColor: '#fff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { padding: 10, font: { size: 11 } }
+                    }
+                }
+            }
+        });
+
+        // WORKFORCE CHARTS
+        const workforceStatusCtx = document.getElementById('workforceStatusChart').getContext('2d');
+        new Chart(workforceStatusCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Main Workers (39.98%)', 'Marginal Workers (8.43%)', 'Non-Workers (51.59%)'],
+                datasets: [{
+                    data: [771931, 162768, 996112],
+                    backgroundColor: [chartColors[0], chartColors[1], chartColors[3]],
+                    borderWidth: 2,
+                    borderColor: '#fff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { padding: 15, font: { size: 11 } }
+                    }
+                }
+            }
+        });
+
+        const workforceOccupationCtx = document.getElementById('workforceOccupationChart').getContext('2d');
+        new Chart(workforceOccupationCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Agri. Labourers', 'Other Workers', 'Cultivators', 'Household Industry'],
+                datasets: [{
+                    label: 'Workers',
+                    data: [424826, 315331, 170556, 23986],
+                    backgroundColor: [chartColors[0], chartColors[1], chartColors[7], chartColors[4]],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return value.toLocaleString();
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        const workforceAgriCtx = document.getElementById('workforceAgriChart').getContext('2d');
+        new Chart(workforceAgriCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Vizianagaram', 'Bobbili', 'Rajam', 'Nellimarla', 'Srungavarapukota'],
+                datasets: [
+                    {
+                        label: 'Agriculture Workers',
+                        data: [60500, 30900, 25000, 20300, 20000],
+                        backgroundColor: chartColors[3],
+                        borderWidth: 0
+                    },
+                    {
+                        label: 'Non-Agriculture Workers',
+                        data: [52920, 18286, 12616, 10512, 10367],
+                        backgroundColor: chartColors[4],
+                        borderWidth: 0
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: { stacked: true },
+                    y: { 
+                        stacked: true, 
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return value.toLocaleString();
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // INDUSTRIES CHARTS
+        const industryEmployersCtx = document.getElementById('industryEmployersChart').getContext('2d');
+        new Chart(industryEmployersCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Nellimarla Jute Mills', 'AP Fibers Ltd', 'Steel Exchange Pvt Ltd', 'Mylon Laboratories', 'FACOR', 'Jindal Stainless Ltd'],
+                datasets: [{
+                    label: 'Employees',
+                    data: [6390, 2550, 1400, 1100, 664, 533],
+                    backgroundColor: [chartColors[0], chartColors[1], chartColors[2], chartColors[3], chartColors[4], chartColors[5]],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return value.toLocaleString();
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        const industrySectorCtx = document.getElementById('industrySectorChart').getContext('2d');
+        new Chart(industrySectorCtx, {
+            type: 'pie',
+            data: {
+                labels: ['Primary (Agriculture & Allied) - 25%', 'Secondary (Manufacturing) - 45%', 'Tertiary (Services) - 30%'],
+                datasets: [{
+                    data: [25, 45, 30],
+                    backgroundColor: ['#22C55E', '#1FB8CD', '#FFC185'],
+                    borderWidth: 2,
+                    borderColor: '#fff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { padding: 10, font: { size: 11 } }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const label = context.label || '';
+                                return label;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        const industryTypesCtx = document.getElementById('industryTypesChart').getContext('2d');
+        new Chart(industryTypesCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Textile/Jute Mills', 'Rice Mills', 'Ferro Alloys', 'Cashew Processing', 'Sugar Factories', 'Repair & Servicing', 'Dairy Products'],
+                datasets: [{
+                    label: 'Employment',
+                    data: [6390, 2896, 2575, 1510, 1184, 640, 133],
+                    backgroundColor: chartColors[0],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return value.toLocaleString();
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
