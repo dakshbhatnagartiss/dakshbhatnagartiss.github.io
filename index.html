@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vizianagaram District Dashboard</title>
+    <title>Vizianagaram District</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
@@ -137,6 +137,7 @@
     --color-card-border-inner: rgba(var(--color-gray-400-rgb), 0.15);
   }
 }
+
 
 
 * {
@@ -997,7 +998,7 @@ body {
                             <canvas id="demoGenderChart"></canvas>
                         </div>
                     </div>
-                   
+                    
                 </div>
             </section>
 
@@ -1502,9 +1503,12 @@ body {
             </section>
         </main>
 
-     
+      
+    </div>
 
     <script>
+        // Wait for DOM to be fully loaded before initializing charts
+        document.addEventListener('DOMContentLoaded', function() {
         // Navigation functionality
         const navTabs = document.querySelectorAll('.nav-tab');
         const sections = document.querySelectorAll('.section');
@@ -1528,9 +1532,24 @@ body {
         // Chart colors
         const chartColors = ['#1FB8CD', '#FFC185', '#B4413C', '#ECEBD5', '#5D878F', '#DB4545', '#D2BA4C', '#964325', '#944454', '#13343B'];
 
+        // Helper function to safely create charts
+        function createChart(canvasId, config) {
+            const canvas = document.getElementById(canvasId);
+            if (!canvas) {
+                console.error('Canvas element not found: ' + canvasId);
+                return null;
+            }
+            try {
+                const ctx = canvas.getContext('2d');
+                return new Chart(ctx, config);
+            } catch (error) {
+                console.error('Error creating chart ' + canvasId + ':', error);
+                return null;
+            }
+        }
+
         // OVERVIEW CHARTS
-        const overviewRuralUrbanCtx = document.getElementById('overviewRuralUrbanChart').getContext('2d');
-        new Chart(overviewRuralUrbanCtx, {
+        createChart('overviewRuralUrbanChart', {
             type: 'pie',
             data: {
                 labels: ['Rural (77.74%)', 'Urban (22.26%)'],
@@ -1553,8 +1572,7 @@ body {
             }
         });
 
-        const overviewMandalCtx = document.getElementById('overviewMandalChart').getContext('2d');
-        new Chart(overviewMandalCtx, {
+        createChart('overviewMandalChart', {
             type: 'bar',
             data: {
                 labels: ['Vizianagaram', 'Bobbili', 'Rajam', 'Nellimarla', 'Srungavarapukota'],
@@ -1584,8 +1602,7 @@ body {
         });
 
         // DEMOGRAPHICS CHARTS
-        const demoRuralUrbanCtx = document.getElementById('demoRuralUrbanChart').getContext('2d');
-        new Chart(demoRuralUrbanCtx, {
+        createChart('demoRuralUrbanChart', {
             type: 'pie',
             data: {
                 labels: ['Rural (77.74%)', 'Urban (22.26%)'],
@@ -1608,8 +1625,7 @@ body {
             }
         });
 
-        const demoSCSTCtx = document.getElementById('demoSCSTChart').getContext('2d');
-        new Chart(demoSCSTCtx, {
+        createChart('demoSCSTChart', {
             type: 'bar',
             data: {
                 labels: ['Vizianagaram', 'Bobbili', 'Rajam', 'Nellimarla', 'Srungavarapukota'],
@@ -1644,8 +1660,7 @@ body {
             }
         });
 
-        const demoGenderCtx = document.getElementById('demoGenderChart').getContext('2d');
-        new Chart(demoGenderCtx, {
+        createChart('demoGenderChart', {
             type: 'pie',
             data: {
                 labels: ['Male (49.75%)', 'Female (50.25%)'],
@@ -1677,22 +1692,21 @@ body {
             }
         });
 
-        const demoLiteracyCtx = document.getElementById('demoLiteracyChart').getContext('2d');
-        new Chart(demoLiteracyCtx, {
+        createChart('demoLiteracyChart', {
             type: 'bar',
             data: {
-                labels: ['Literacy Rate (%)', 'Total Literates'],
+                labels: ['Overall', 'Male', 'Female'],
                 datasets: [
                     {
-                        label: 'Male',
-                        data: [61.06, 583000],
-                        backgroundColor: chartColors[0],
+                        label: 'Literate (%)',
+                        data: [53.21, 61.06, 45.45],
+                        backgroundColor: '#10b981',
                         borderWidth: 0
                     },
                     {
-                        label: 'Female',
-                        data: [45.45, 437000],
-                        backgroundColor: '#FF5459',
+                        label: 'Illiterate (%)',
+                        data: [46.79, 38.94, 54.55],
+                        backgroundColor: '#f59e0b',
                         borderWidth: 0
                     }
                 ]
@@ -1703,10 +1717,23 @@ body {
                 scales: {
                     y: {
                         beginAtZero: true,
+                        max: 100,
                         ticks: {
                             callback: function(value) {
-                                return value.toLocaleString();
+                                return value + '%';
                             }
+                        },
+                        title: {
+                            display: true,
+                            text: 'Percentage',
+                            font: { size: 12, weight: 'bold' }
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Category',
+                            font: { size: 12, weight: 'bold' }
                         }
                     }
                 },
@@ -1719,8 +1746,8 @@ body {
                         callbacks: {
                             label: function(context) {
                                 const label = context.dataset.label || '';
-                                const value = context.parsed.y.toLocaleString();
-                                return label + ': ' + value;
+                                const value = context.parsed.y.toFixed(2);
+                                return label + ': ' + value + '%';
                             }
                         }
                     }
@@ -1729,38 +1756,43 @@ body {
         });
 
         // EDUCATION CHARTS
-        const eduGovtPrivateCtx = document.getElementById('eduGovtPrivateChart').getContext('2d');
-        new Chart(eduGovtPrivateCtx, {
+        createChart('eduGovtPrivateChart', {
             type: 'bar',
             data: {
-                labels: ['Primary', 'Upper Primary', 'High Schools', 'Jr. Colleges', 'Degree', 'Engineering', 'Polytechnics', 'ITI'],
+                labels: ['Primary', 'Upper Primary', 'High Schools', 'Jr. Colleges', 'Degree', 'Engineering', 'Polytechnics', 'ITI', 'Skill Centres'],
                 datasets: [
                     {
                         label: 'Government',
-                        data: [413, 6, 82, 65, 6, 1, 1, 1],
+                        data: [413, 6, 82, 65, 6, 1, 1, 1, 2],
                         backgroundColor: chartColors[0],
                         borderWidth: 0
                     },
                     {
                         label: 'Private',
-                        data: [1223, 218, 253, 77, 63, 9, 11, 8],
+                        data: [1223, 218, 253, 77, 63, 9, 11, 8, 10],
                         backgroundColor: chartColors[1],
                         borderWidth: 0
                     }
                 ]
             },
             options: {
+                indexAxis: 'y',
                 responsive: true,
                 maintainAspectRatio: false,
                 scales: {
-                    x: { stacked: true },
-                    y: { stacked: true, beginAtZero: true }
+                    x: { stacked: true, beginAtZero: true },
+                    y: { stacked: true }
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { padding: 15, font: { size: 12 } }
+                    }
                 }
             }
         });
 
-        const eduEnrollmentCtx = document.getElementById('eduEnrollmentChart').getContext('2d');
-        new Chart(eduEnrollmentCtx, {
+        createChart('eduEnrollmentChart', {
             type: 'bar',
             data: {
                 labels: ['Primary', 'Upper Primary', 'High Schools', 'Jr. Colleges', 'Degree', 'Engineering'],
@@ -1788,14 +1820,13 @@ body {
             }
         });
 
-        const eduHigherEdCtx = document.getElementById('eduHigherEdChart').getContext('2d');
-        new Chart(eduHigherEdCtx, {
+        createChart('eduHigherEdChart', {
             type: 'pie',
             data: {
-                labels: ['Degree (69)', 'Engineering (10)', 'Polytechnics (12)', 'ITI (9)', 'Medical (1)', 'B.Ed (37)'],
+                labels: ['Degree Colleges (69)', 'Engineering (10)', 'Polytechnics (12)', 'ITI (9)', 'Medical (1)', 'B.Ed (37)', 'Skill Centres (12)'],
                 datasets: [{
-                    data: [69, 10, 12, 9, 1, 37],
-                    backgroundColor: chartColors.slice(0, 6),
+                    data: [69, 10, 12, 9, 1, 37, 12],
+                    backgroundColor: chartColors.slice(0, 7),
                     borderWidth: 2,
                     borderColor: '#fff'
                 }]
@@ -1813,8 +1844,7 @@ body {
         });
 
         // WORKFORCE CHARTS
-        const workforceStatusCtx = document.getElementById('workforceStatusChart').getContext('2d');
-        new Chart(workforceStatusCtx, {
+        createChart('workforceStatusChart', {
             type: 'doughnut',
             data: {
                 labels: ['Main Workers (39.98%)', 'Marginal Workers (8.43%)', 'Non-Workers (51.59%)'],
@@ -1837,8 +1867,7 @@ body {
             }
         });
 
-        const workforceOccupationCtx = document.getElementById('workforceOccupationChart').getContext('2d');
-        new Chart(workforceOccupationCtx, {
+        createChart('workforceOccupationChart', {
             type: 'bar',
             data: {
                 labels: ['Agri. Labourers', 'Other Workers', 'Cultivators', 'Household Industry'],
@@ -1867,8 +1896,7 @@ body {
             }
         });
 
-        const workforceAgriCtx = document.getElementById('workforceAgriChart').getContext('2d');
-        new Chart(workforceAgriCtx, {
+        createChart('workforceAgriChart', {
             type: 'bar',
             data: {
                 labels: ['Vizianagaram', 'Bobbili', 'Rajam', 'Nellimarla', 'Srungavarapukota'],
@@ -1906,8 +1934,7 @@ body {
         });
 
         // INDUSTRIES CHARTS
-        const industryEmployersCtx = document.getElementById('industryEmployersChart').getContext('2d');
-        new Chart(industryEmployersCtx, {
+        createChart('industryEmployersChart', {
             type: 'bar',
             data: {
                 labels: ['Nellimarla Jute Mills', 'AP Fibers Ltd', 'Steel Exchange Pvt Ltd', 'Mylon Laboratories', 'FACOR', 'Jindal Stainless Ltd'],
@@ -1936,8 +1963,7 @@ body {
             }
         });
 
-        const industrySectorCtx = document.getElementById('industrySectorChart').getContext('2d');
-        new Chart(industrySectorCtx, {
+        createChart('industrySectorChart', {
             type: 'pie',
             data: {
                 labels: ['Primary (Agriculture & Allied) - 25%', 'Secondary (Manufacturing) - 45%', 'Tertiary (Services) - 30%'],
@@ -1968,8 +1994,7 @@ body {
             }
         });
 
-        const industryTypesCtx = document.getElementById('industryTypesChart').getContext('2d');
-        new Chart(industryTypesCtx, {
+        createChart('industryTypesChart', {
             type: 'bar',
             data: {
                 labels: ['Textile/Jute Mills', 'Rice Mills', 'Ferro Alloys', 'Cashew Processing', 'Sugar Factories', 'Repair & Servicing', 'Dairy Products'],
@@ -1997,6 +2022,8 @@ body {
                 }
             }
         });
+
+        }); // End of DOMContentLoaded
     </script>
 </body>
 </html>
